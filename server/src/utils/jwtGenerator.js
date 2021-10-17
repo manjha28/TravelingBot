@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken")
 require('dotenv').config({path:"C:\\Users\\manis\\TravelingBot\\server\\.env"});
-console.log(process.env.PRIVATE_KEY)
+//console.log(process.env.PRIVATE_KEY)
 
 function jwtGenerator(login_id){
     const payload = {
