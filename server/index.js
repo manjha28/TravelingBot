@@ -11,8 +11,10 @@ app.use(cors());
 
 //ROUTES
 app.use('/auth', require('./src/routes/auth'));
-//Register and login routes
+//dashboard
+
+app.use('/home', require('./src/routes/dashboard'));
 
 app.listen(PORT, ()=>{
   console.log(`Server is listening at http://localhost:${PORT}/`)
-})
+});
