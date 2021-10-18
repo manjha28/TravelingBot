@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs/dist/bcrypt");
 const pool = require("../db/index");
 const jwtGenerator = require("../utils/jwtGenerator");
 const validInfo = require("../middleware/validInfo");
+const authorization = require("../middleware/auth")
 
 //Register
 router.post("/register",validInfo, async (req, res) => {
@@ -73,4 +74,19 @@ router.post("/login",validInfo,async (req, res) => {
     res.status(500).send(`${error.message}`);
   }
 });
+
+//Private Routes
+
+router.get("/authorize", authorization, async(req, res)=>{
+  try {
+
+    res.json(true);
+    
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send(`${error.message}`);
+  }
+})
+
+
 module.exports = router;
