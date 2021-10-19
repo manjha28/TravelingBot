@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { check , validationResult} = require('express-validator');
 const bcrypt = require("bcryptjs/dist/bcrypt");
 const pool = require("../db/index");
 const jwtGenerator = require("../utils/jwtGenerator");
@@ -10,6 +11,7 @@ router.post("/register",validInfo, async (req, res) => {
   try {
     //1. destructure the req.body (name,email,password)
     const { name, email, password } = req.body;
+    
     //2. check if user exist
     const user = await pool.query("SELECT * FROM userstb WHERE email =$1", [
       email,
@@ -19,6 +21,7 @@ router.post("/register",validInfo, async (req, res) => {
     }
     //3.bcrypt user password
 
+    
     const saltRound = 10;
     const salt = await bcrypt.genSalt(saltRound);
     const bcryptPassword = await bcrypt.hash(password, salt);

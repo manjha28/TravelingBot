@@ -23,6 +23,8 @@
     "passport": "^0.5.0",
     "passport-jwt": "^4.0.0",
     "pg": "^8.7.1",
+    "react-router-dom": "^5.3.0",
+    "react-toastify": "^8.0.3",
     "validator": "^13.6.0"
   }
 }
