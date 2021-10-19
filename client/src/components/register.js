@@ -64,6 +64,8 @@ const Register = ({ setAuth }) => {
           className="form-control my-3"
         />
         <button className="btn btn-success btn-block">Register</button>
+        <button class = "btn btn-success btn-block"> <Link to="/login">Login</Link></button>
+
       </form>
       {/* <Link to="/login">login</Link> */}
     </Fragment>
