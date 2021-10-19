@@ -1,30 +1,71 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
+import { Link, Redirect } from "react-router-dom";
+import { toast } from "react-toastify";
 
-const Register = (setAuth) => {
+const Register = ({ setAuth }) => {
+  const [inputs, setInputs] = useState({
+    email: "",
+    password: "",
+    name: "",
+  });
+
+  const { email, password, name } = inputs;
+
+  const onChange = (e) =>
+    setInputs({ ...inputs, [e.target.name]: e.target.value });
+
+  const onSubmitForm = async (e) => {
+    e.preventDefault();
+    try {
+      const body = { email, password, name };
+      const response = await fetch("http://localhost:5100/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+      const parseRes = await response.json();
+    //   console.log(parseRes);
+    localStorage.setItem("token", parseRes.token)
+    setAuth(true);
+
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
   return (
     <Fragment>
-      <h1>Register</h1>
-      <form>
+      <h1 className="mt-5 text-center">Register</h1>
+      <form onSubmit={onSubmitForm}>
         <input
-          className="form-control my-3"
-          type={"text"}
-          name="Name"
+          type="text"
+          name="name"
+          value={name}
           placeholder="Full Name"
+          onChange={(e) => onChange(e)}
+          className="form-control my-3"
         />
         <input
-          className="form-control my-3"
-          type={"email"}
+          type="text"
           name="email"
-          placeholder="Valid email"
+          value={email}
+          placeholder="Email"
+          onChange={(e) => onChange(e)}
+          className="form-control my-3"
         />
         <input
+          type="password"
+          name="password"
+          value={password}
+          placeholder="password"
+          onChange={(e) => onChange(e)}
           className="form-control my-3"
-          type={"email"}
-          name="Passqoed"
-          placeholder="Password"
         />
+        <button className="btn btn-success btn-block">Register</button>
       </form>
-      <button onClick={() => setAuth(true)}>Register</button>
+      {/* <Link to="/login">login</Link> */}
     </Fragment>
   );
 };
